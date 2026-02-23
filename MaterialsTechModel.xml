@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<SystemConfiguration version="1.0">
+
+  <Metadata>
+    <Id>System-Dependency-Map-01</Id>
+    <Created>2026-02-22T00:00:00Z</Created>
+    <Mode>Deterministic</Mode>
+  </Metadata>
+
+  <!-- Core Power State -->
+  <Power>
+    <Default>Off</Default>
+  </Power>
+
+  <!-- Hardware Components -->
+  <Components>
+
+    <Component name="CPU">
+      <Requires>Power</Requires>
+    </Component>
+
+    <Component name="Display">
+      <Requires>Power</Requires>
+    </Component>
+
+    <Component name="Storage">
+      <Requires>Power</Requires>
+    </Component>
+
+    <Component name="Network">
+      <Requires>Power</Requires>
+    </Component>
+
+  </Components>
+
+  <!-- System Services -->
+  <Services>
+
+    <Service name="Kernel">
+      <Requires>CPU</Requires>
+      <Requires>Power</Requires>
+    </Service>
+
+    <Service name="Browser">
+      <Requires>Kernel</Requires>
+      <Requires>Network</Requires>
+      <Requires>Display</Requires>
+    </Service>
+
+    <Service name="MediaPlayer">
+      <Requires>Kernel</Requires>
+      <Requires>Storage</Requires>
+      <Requires>Display</Requires>
+    </Service>
+
+  </Services>
+
+  <!-- Network Access -->
+  <NetworkAccess default="Deny">
+
+    <Allow>
+      <Requires>Browser</Requires>
+      <Requires>Network</Requires>
+    </Allow>
+
+  </NetworkAccess>
+
+  <!-- System Behavior -->
+  <Behavior>
+
+    <WhenPowerOff>
+      <AllComponents>Inactive</AllComponents>
+      <AllServices>Inactive</AllServices>
+      <NetworkAccess>Deny</NetworkAccess>
+    </WhenPowerOff>
+
+  </Behavior>
+
+  <!-- Output State -->
+  <StatusOutput>
+    <Include>Power</Include>
+    <Include>CPU</Include>
+    <Include>Display</Include>
+    <Include>Storage</Include>
+    <Include>Network</Include>
+    <Include>Kernel</Include>
+    <Include>Browser</Include>
+    <Include>MediaPlayer</Include>
+    <Include>NetworkAccess</Include>
+  </StatusOutput>
+
+</SystemConfiguration>
